@@ -1,0 +1,17 @@
+# Стек для Portainer: Stacks → Add stack → Web editor → вставить этот файл.
+# Перед запуском нужно один раз выполнить scripts/setup.sh — он создаёт
+# /opt/xray/config.json, который подключается в контейнер.
+services:
+  xray:
+    image: teddysun/xray:latest
+    container_name: xray
+    restart: unless-stopped
+    ports:
+      - "443:443/tcp"
+    volumes:
+      - /opt/xray/config.json:/etc/xray/config.json:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
